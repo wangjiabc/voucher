@@ -1,16 +1,19 @@
 package com.voucher.weixin.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,7 @@ import com.voucher.manage.dao.RoomInfoDao;
 import com.voucher.manage.daoModel.RoomInfo;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.TTT.ChartInfo;
+import com.voucher.manage.daoModel.TTT.PreMessage;
 import com.voucher.manage.mapper.MessageListMapper;
 import com.voucher.manage.mapper.UsersMapper;
 import com.voucher.manage.mapper.WeiXinMapper;
@@ -44,6 +48,8 @@ import com.voucher.sqlserver.context.Connect;
 import com.voucher.weixin.MessageTemplate.ChatTemplateProcessor;
 import com.voucher.weixin.MessageTemplate.TemplateData;
 import com.voucher.weixin.MessageTemplate.WxTemplate;
+
+import common.HttpClient;
 
 @Controller
 @RequestMapping("/mobile/WechatSendMessage")
@@ -72,6 +78,14 @@ public class WechatSendMessageController {
 	
 	RoomInfoDao roomInfoDao=(RoomInfoDao) applicationContext.getBean("roomInfodao");
 	
+	ClassPathXmlApplicationContext mysqlApplicationContext = new ClassPathXmlApplicationContext(
+			"spring-mybatis2.xml");
+	DefaultSqlSessionFactory defaultSqlSessionFactory = (DefaultSqlSessionFactory) mysqlApplicationContext
+			.getBean("sqlSessionFactory");
+	SqlSession sqlSession = defaultSqlSessionFactory.openSession();
+	
+	private UsersMapper usersMapper = sqlSession.getMapper(UsersMapper.class);
+		
 	@RequestMapping("/send")
 	public @ResponseBody String template(HttpServletRequest request,HttpServletResponse response,
 			@RequestParam String title,@RequestParam String reportUser,
@@ -388,5 +402,64 @@ public class WechatSendMessageController {
 		}
 	}
 	
+	public Integer sendPhoneMessage(String phone,String Message,
+			String charter,String openId){
+		
+		Users users = usersMapper.getUserByOnlyOpenId(openId);
+
+		PreMessage preMessage = new PreMessage();
+
+		preMessage.setOptAdd(users.getName());
+		preMessage.setMessage(Message);
+
+		HttpClient httpClient = new HttpClient();
+
+		String requestUrl="http://utf8.api.smschinese.cn";
+
+		List<BasicNameValuePair> reqParam = new ArrayList<BasicNameValuePair>();
+		reqParam.add(new BasicNameValuePair("Uid", Singleton.UID));
+		reqParam.add(new BasicNameValuePair("Key", Singleton.KEY));
+		reqParam.add(new BasicNameValuePair("smsMob", phone));
+		reqParam.add(new BasicNameValuePair("smsText", Message));
+		String r = httpClient.doGet(requestUrl, reqParam);
+
+		String GUID = UUID.randomUUID().toString();
+
+		preMessage.setGUID(GUID);
+		preMessage.setPhone(phone);
+		preMessage.setOptDate(new Date());
+		
+		if(charter!=null&&!charter.equals(""))
+			preMessage.setPhoneWho(charter);
+		
+		int i=Integer.parseInt(r);
+		
+		if(i>0){
+			  preMessage.setState("发送成功");
+		  }else{
+			  preMessage.setState("发送失败");
+		  }
+		
+		roomInfoDao.insertPreMessage(preMessage);
+
+		return i;
+	}
+	
+	
+	public Integer getPhoneMessageNumber(){
+		
+		  HttpClient httpClient = new HttpClient();
+		
+		  String requestUrl="http://www.smschinese.cn/web_api/SMS";
+		  
+		  List<BasicNameValuePair> reqParam = new ArrayList<BasicNameValuePair>();
+		  reqParam.add(new BasicNameValuePair("Action", "SMS_Num"));
+		  reqParam.add(new BasicNameValuePair("Uid", Singleton.UID));
+		  reqParam.add(new BasicNameValuePair("Key", Singleton.KEY));
+		  String r=httpClient.doGet(requestUrl, reqParam);
+		  
+		  return Integer.parseInt(r);
+		  
+	}
 	
 }

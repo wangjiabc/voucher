@@ -9,7 +9,7 @@ public class Singleton {
 
 	private static Singleton instance = new Singleton();
 		
-	public final static String ROOMDATABASE="[TTT]";
+	public final static String ROOMDATABASE="[RoomManage]";
 	
 	//本地文件目录
 	public final static String filePath="\\Desktop\\pasoft\\photo";
@@ -19,6 +19,12 @@ public class Singleton {
 	
 	//资产管理系统图片目录2
 	public static final String ROOMINFOIMGPATH2	="D:\\SYSPICTURE\\pasoft";
+	
+	//短信帐号
+	public static final String UID="兴泸资产管理有限公司";
+	
+	//短信密钥
+	public static final String KEY="d41d8cd98f00b204e980";
 	
 	private LinkedHashMap<String, Map<String, Date>> registerMap;
 	
