@@ -23,7 +23,7 @@ import com.voucher.inswept.topic.producer.TopicSender;
 @RequestMapping("/test/activemq")
 public class ActivemqController {
 	
-	//@Resource TopicSender topicSender;
+	@Resource TopicSender topicSender;
 	
 	
 	/**
@@ -31,17 +31,19 @@ public class ActivemqController {
 	 * @param message
 	 * @return String
 	 */
-	/*@ResponseBody
+	@ResponseBody
 	@RequestMapping("topicSender")
 	public String topicSender(@RequestParam("message")String message){
 		String opt="bbbbb";
+		
 		try {
 			topicSender.send("general", message);
 			opt="suc";
 		} catch (Exception e) {
-			opt=e.getCause().toString();
+			//opt=e.getCause().toString();
+			e.printStackTrace();
 		}
 		return opt;
 	}
-	*/
+	
 }
