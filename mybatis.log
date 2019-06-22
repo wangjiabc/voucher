@@ -3913,3 +3913,79 @@ java.sql.SQLException: unkow jdbc driver : ${jdbc_url}
 [DEBUG][2019-06-22 10:51:48,273][org.apache.http.impl.conn.BasicHttpClientConnectionManager]Releasing connection 192.168.1.106:51174<->182.254.78.168:443
 [DEBUG][2019-06-22 10:51:48,273][org.apache.http.impl.conn.DefaultManagedHttpClientConnection]http-outgoing-0: set socket timeout to 0
 [DEBUG][2019-06-22 10:51:48,273][org.apache.http.impl.conn.BasicHttpClientConnectionManager]Connection can be kept alive for 8000 MILLISECONDS
+[DEBUG][2019-06-22 10:56:18,914][org.apache.http.client.protocol.RequestAddCookies]CookieSpec selected: default
+[DEBUG][2019-06-22 10:56:18,922][org.apache.http.client.protocol.RequestAuthCache]Auth cache not set in the context
+[DEBUG][2019-06-22 10:56:18,923][org.apache.http.impl.conn.BasicHttpClientConnectionManager]Get connection for route {s}->https://api.mch.weixin.qq.com:443
+[DEBUG][2019-06-22 10:56:18,931][org.apache.http.impl.conn.DefaultManagedHttpClientConnection]http-outgoing-0: set socket timeout to 0
+[DEBUG][2019-06-22 10:56:18,931][org.apache.http.impl.execchain.MainClientExec]Opening connection {s}->https://api.mch.weixin.qq.com:443
+[DEBUG][2019-06-22 10:56:18,944][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connecting to api.mch.weixin.qq.com/182.254.10.62:443
+[DEBUG][2019-06-22 10:56:18,945][org.apache.http.conn.ssl.SSLConnectionSocketFactory]Connecting socket to api.mch.weixin.qq.com/182.254.10.62:443 with timeout 0
+[DEBUG][2019-06-22 10:56:19,111][org.apache.http.conn.ssl.SSLConnectionSocketFactory]Enabled protocols: [TLSv1, TLSv1.1, TLSv1.2]
+[DEBUG][2019-06-22 10:56:19,111][org.apache.http.conn.ssl.SSLConnectionSocketFactory]Enabled cipher suites:[TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256, TLS_DHE_RSA_WITH_AES_128_CBC_SHA256, TLS_DHE_DSS_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDH_RSA_WITH_AES_128_CBC_SHA, TLS_DHE_RSA_WITH_AES_128_CBC_SHA, TLS_DHE_DSS_WITH_AES_128_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256, TLS_DHE_RSA_WITH_AES_128_GCM_SHA256, TLS_DHE_DSS_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA, SSL_RSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA, SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA, SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA, TLS_ECDHE_ECDSA_WITH_RC4_128_SHA, TLS_ECDHE_RSA_WITH_RC4_128_SHA, SSL_RSA_WITH_RC4_128_SHA, TLS_ECDH_ECDSA_WITH_RC4_128_SHA, TLS_ECDH_RSA_WITH_RC4_128_SHA, SSL_RSA_WITH_RC4_128_MD5, TLS_EMPTY_RENEGOTIATION_INFO_SCSV]
+[DEBUG][2019-06-22 10:56:19,112][org.apache.http.conn.ssl.SSLConnectionSocketFactory]Starting handshake
+[DEBUG][2019-06-22 10:56:19,270][org.apache.http.conn.ssl.SSLConnectionSocketFactory]Secure session established
+[DEBUG][2019-06-22 10:56:19,271][org.apache.http.conn.ssl.SSLConnectionSocketFactory] negotiated protocol: TLSv1.2
+[DEBUG][2019-06-22 10:56:19,271][org.apache.http.conn.ssl.SSLConnectionSocketFactory] negotiated cipher suite: TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+[DEBUG][2019-06-22 10:56:19,271][org.apache.http.conn.ssl.SSLConnectionSocketFactory] peer principal: CN=payapp.weixin.qq.com, OU=R&D, O=Tencent Technology (Shenzhen) Company Limited, L=Shenzhen, ST=Guangdong, C=CN
+[DEBUG][2019-06-22 10:56:19,272][org.apache.http.conn.ssl.SSLConnectionSocketFactory] peer alternative names: [payapp.weixin.qq.com, api.oz.weixin.qq.com, wx.gtimg.com, log.weixin.qq.com, api.pay.weixin.qq.com, api2.mch.weixin.qq.com, fraudhk.mch.weixin.qq.com, za.pay.wechat.com, fraudus.mch.weixin.qq.com, act.weixin.qq.com, fraud.mch.weixin.qq.com, apihk.mch.weixin.qq.com, mch.weixin.qq.com, api.mch.weixin.qq.com, apius.mch.weixin.qq.com, oz.weixin.qq.com, pay.weops.qq.com, action.weixin.qq.com, apitest.mch.weixin.qq.com, pay.weixin.qq.com]
+[DEBUG][2019-06-22 10:56:19,272][org.apache.http.conn.ssl.SSLConnectionSocketFactory] issuer principal: CN=GeoTrust RSA CA 2018, OU=www.digicert.com, O=DigiCert Inc, C=US
+[DEBUG][2019-06-22 10:56:19,279][org.apache.http.impl.conn.DefaultHttpClientConnectionOperator]Connection established 192.168.1.106:51189<->182.254.10.62:443
+[DEBUG][2019-06-22 10:56:19,280][org.apache.http.impl.execchain.MainClientExec]Executing request POST /pay/unifiedorder HTTP/1.1
+[DEBUG][2019-06-22 10:56:19,280][org.apache.http.impl.execchain.MainClientExec]Target auth state: UNCHALLENGED
+[DEBUG][2019-06-22 10:56:19,281][org.apache.http.impl.execchain.MainClientExec]Proxy auth state: UNCHALLENGED
+[DEBUG][2019-06-22 10:56:19,283][org.apache.http.headers]http-outgoing-0 >> POST /pay/unifiedorder HTTP/1.1
+[DEBUG][2019-06-22 10:56:19,283][org.apache.http.headers]http-outgoing-0 >> Content-Type: text/xml
+[DEBUG][2019-06-22 10:56:19,283][org.apache.http.headers]http-outgoing-0 >> User-Agent: wxpay sdk java v1.0 
+[DEBUG][2019-06-22 10:56:19,283][org.apache.http.headers]http-outgoing-0 >> Content-Length: 474
+[DEBUG][2019-06-22 10:56:19,283][org.apache.http.headers]http-outgoing-0 >> Host: api.mch.weixin.qq.com
+[DEBUG][2019-06-22 10:56:19,283][org.apache.http.headers]http-outgoing-0 >> Connection: Keep-Alive
+[DEBUG][2019-06-22 10:56:19,284][org.apache.http.headers]http-outgoing-0 >> Accept-Encoding: gzip,deflate
+[DEBUG][2019-06-22 10:56:19,284][org.apache.http.wire]http-outgoing-0 >> "POST /pay/unifiedorder HTTP/1.1[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,284][org.apache.http.wire]http-outgoing-0 >> "Content-Type: text/xml[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,284][org.apache.http.wire]http-outgoing-0 >> "User-Agent: wxpay sdk java v1.0 [\r][\n]"
+[DEBUG][2019-06-22 10:56:19,284][org.apache.http.wire]http-outgoing-0 >> "Content-Length: 474[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,284][org.apache.http.wire]http-outgoing-0 >> "Host: api.mch.weixin.qq.com[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,284][org.apache.http.wire]http-outgoing-0 >> "Connection: Keep-Alive[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,285][org.apache.http.wire]http-outgoing-0 >> "Accept-Encoding: gzip,deflate[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,285][org.apache.http.wire]http-outgoing-0 >> "[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,285][org.apache.http.wire]http-outgoing-0 >> "<?xml version="1.0" encoding="UTF-8"?><xml>[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,285][org.apache.http.wire]http-outgoing-0 >> "<nonce_str>5K8264ILTKCH16CQ2502SI8ZNMTM67VS</nonce_str>[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,285][org.apache.http.wire]http-outgoing-0 >> "<out_trade_no>20150806125346</out_trade_no>[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,285][org.apache.http.wire]http-outgoing-0 >> "<appid>wx341107fe47464801</appid>[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,285][org.apache.http.wire]http-outgoing-0 >> "<total_fee>1</total_fee>[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,285][org.apache.http.wire]http-outgoing-0 >> "<sign>E3760963F92B6A84382158FEA7B524AD</sign>[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,285][org.apache.http.wire]http-outgoing-0 >> "<trade_type>JSAPI</trade_type>[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,285][org.apache.http.wire]http-outgoing-0 >> "<mch_id>1277689001</mch_id>[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,286][org.apache.http.wire]http-outgoing-0 >> "<body>[0xe8][0x85][0xbe][0xe8][0xae][0xaf][0xe5][0x85][0x85][0xe5][0x80][0xbc][0xe4][0xb8][0xad][0xe5][0xbf][0x83]</body>[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,286][org.apache.http.wire]http-outgoing-0 >> "<notify_url>http://www.weixin.qq.com/wxpay/pay.php</notify_url>[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,286][org.apache.http.wire]http-outgoing-0 >> "<spbill_create_ip>123.12.12.123</spbill_create_ip>[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,286][org.apache.http.wire]http-outgoing-0 >> "</xml>[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,430][org.apache.http.wire]http-outgoing-0 << "HTTP/1.1 200 OK[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,430][org.apache.http.wire]http-outgoing-0 << "Server: nginx[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,431][org.apache.http.wire]http-outgoing-0 << "Date: Sat, 22 Jun 2019 02:56:24 GMT[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,431][org.apache.http.wire]http-outgoing-0 << "Content-Type: text/plain[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,431][org.apache.http.wire]http-outgoing-0 << "Content-Length: 451[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,432][org.apache.http.wire]http-outgoing-0 << "Connection: keep-alive[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,432][org.apache.http.wire]http-outgoing-0 << "Keep-Alive: timeout=8[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,432][org.apache.http.wire]http-outgoing-0 << "[\r][\n]"
+[DEBUG][2019-06-22 10:56:19,432][org.apache.http.wire]http-outgoing-0 << "<xml><return_code><![CDATA[SUCCESS]]></return_code>[\n]"
+[DEBUG][2019-06-22 10:56:19,432][org.apache.http.wire]http-outgoing-0 << "<return_msg><![CDATA[OK]]></return_msg>[\n]"
+[DEBUG][2019-06-22 10:56:19,433][org.apache.http.wire]http-outgoing-0 << "<appid><![CDATA[wx341107fe47464801]]></appid>[\n]"
+[DEBUG][2019-06-22 10:56:19,433][org.apache.http.wire]http-outgoing-0 << "<mch_id><![CDATA[1277689001]]></mch_id>[\n]"
+[DEBUG][2019-06-22 10:56:19,433][org.apache.http.wire]http-outgoing-0 << "<nonce_str><![CDATA[Jgckf8xt56e4DYiu]]></nonce_str>[\n]"
+[DEBUG][2019-06-22 10:56:19,434][org.apache.http.wire]http-outgoing-0 << "<sign><![CDATA[8A7C9D161D86DA51ABDC67E4E8B1681A]]></sign>[\n]"
+[DEBUG][2019-06-22 10:56:19,434][org.apache.http.wire]http-outgoing-0 << "<result_code><![CDATA[FAIL]]></result_code>[\n]"
+[DEBUG][2019-06-22 10:56:19,434][org.apache.http.wire]http-outgoing-0 << "<err_code><![CDATA[PARAM_ERROR]]></err_code>[\n]"
+[DEBUG][2019-06-22 10:56:19,434][org.apache.http.wire]http-outgoing-0 << "<err_code_des><![CDATA[JSAPI[0xe6][0x94][0xaf][0xe4][0xbb][0x98][0xe5][0xbf][0x85][0xe9][0xa1][0xbb][0xe4][0xbc][0xa0]openid]]></err_code_des>[\n]"
+[DEBUG][2019-06-22 10:56:19,435][org.apache.http.wire]http-outgoing-0 << "</xml>"
+[DEBUG][2019-06-22 10:56:19,442][org.apache.http.headers]http-outgoing-0 << HTTP/1.1 200 OK
+[DEBUG][2019-06-22 10:56:19,443][org.apache.http.headers]http-outgoing-0 << Server: nginx
+[DEBUG][2019-06-22 10:56:19,443][org.apache.http.headers]http-outgoing-0 << Date: Sat, 22 Jun 2019 02:56:24 GMT
+[DEBUG][2019-06-22 10:56:19,443][org.apache.http.headers]http-outgoing-0 << Content-Type: text/plain
+[DEBUG][2019-06-22 10:56:19,443][org.apache.http.headers]http-outgoing-0 << Content-Length: 451
+[DEBUG][2019-06-22 10:56:19,444][org.apache.http.headers]http-outgoing-0 << Connection: keep-alive
+[DEBUG][2019-06-22 10:56:19,444][org.apache.http.headers]http-outgoing-0 << Keep-Alive: timeout=8
+[DEBUG][2019-06-22 10:56:19,459][org.apache.http.impl.execchain.MainClientExec]Connection can be kept alive for 8000 MILLISECONDS
+[DEBUG][2019-06-22 10:56:19,466][org.apache.http.impl.conn.BasicHttpClientConnectionManager]Releasing connection 192.168.1.106:51189<->182.254.10.62:443
+[DEBUG][2019-06-22 10:56:19,466][org.apache.http.impl.conn.DefaultManagedHttpClientConnection]http-outgoing-0: set socket timeout to 0
+[DEBUG][2019-06-22 10:56:19,466][org.apache.http.impl.conn.BasicHttpClientConnectionManager]Connection can be kept alive for 8000 MILLISECONDS
