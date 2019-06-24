@@ -1,127 +1,393 @@
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-
+<!-- 承租人交租金界面 -->
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta content="" name="description"/>
-    <meta content="webthemez" name="author"/>
-    <title>房屋出租合同</title>
-    <link rel="stylesheet"
-          href="../../../assets/bootstrap-table/bootstrap-table.css">
-    <link rel="stylesheet"
-          href="../../../assets/bootstrap-table/bootstrap-editable.css">
-    <script src="../../../assets/bootstrap-table/jquery.min.js"></script>
-    <link rel="stylesheet" href="../../../assets/bootstrap-table/bootstrap.min.css">
-    <script src="../../../assets/bootstrap-table/bootstrap-table.js"></script>
-    <script src="../../../assets/bootstrap-table/bootstrap-table-export.js"></script>
-    <script src="../../../assets/bootstrap-table/tableExport.js"></script>
-    <script src="../../../assets/bootstrap-table/bootstrap-table-editable.js"></script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta content="" name="description" />
+<meta content="webthemez" name="author" />
+<title>房屋出租合同</title>
+<link rel='stylesheet' type='text/css'
+	href='../../../css/bootstrap2.min.css'>
+<link rel="stylesheet"
+	href="../../../assets/bootstrap-table/bootstrap.min.css">
+<!-- 必须注意引入顺序  -->
+<link rel="stylesheet"
+	href="../../../assets/bootstrap-table/bootstrap-table.css">
+<link rel="stylesheet"
+	href="../../../assets/bootstrap-table/bootstrap-editable.css">
+<script src="../../../assets/bootstrap-table/jquery.min.js"></script>
+<script src="../../../assets/bootstrap-table/bootstrap.min.js"></script>
+<script src="../../../assets/bootstrap-table/bootstrap-table.js"></script>
+<script src="../../../assets/bootstrap-table/bootstrap-table-export.js"></script>
+<script src="../../../assets/bootstrap-table/tableExport.js"></script>
+<script type="text/javascript"
+	src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script
+	src="../../../assets/bootstrap-table/bootstrap-table-editable.js"></script>
+<script src="../../../assets/bootstrap-table/bootstrap-editable.js"></script>
+<script src="../../../js/bootstrap-table-zh-CN.min.js"></script>
 
-    <script src="../../../js/bootstrap-table-zh-CN.min.js"></script>
-    <script type="text/javascript" src="../../../bootstrap/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script src="../../../js/bootstrap-table-zh-CN.min.js"></script>
+<script type="text/javascript"
+	src="../../../bootstrap/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 
-	<script type="text/javascript" src="../js/accessStat.js"></script>
+<link rel="stylesheet" href="../css/jquery-weui.css">
+<link rel="stylesheet" href="../css/weui.css" />
+<script src="../../../js/jquery-weui.js"></script>
 </head>
+<style>
+.guid {
+	display: none;
+}
+</style>
 
 <body>
-        <div class="header">
-            <h1 class="page-header">合同详情</h1>
-        </div>
+	<div class="header">
+		<h1 class="page-header">合同详情</h1>
+	</div>
 
 
-        <div id="page-inner">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table id="table" class="table " data-toggle="table" data-toolbar="#toolbar"
-                                       data-url="" data-search="false"
-                                       data-show-refresh="false" data-show-toggle="false"
-                                       data-side-pagination="server" data-pagination="true"
-                                       data-show-columns="false" data-sort-order="desc">
-                                    <thead>
-                                    <tr>
-                                        <th data-align="left" data-field="hire">金额</th>
-                                        <th data-align="left" data-field="state" data-sortable="true">状态</th>
-                                        <th data-align="left" data-field="hireDate" data-sortable="true">日期</th>                               
+	<div id="toolbar" class="btn-group">
+		<button id="plus" type="button" class="btn btn-default" title="交租金">
+			<i class="glyphicon glyphicon-plus"></i><span>&nbsp;&nbsp;交租金</span>
+		</button>
+	</div>
 
-                                    </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+	<div id="page-inner">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table id="table" class="table " data-toggle="table"
+								data-toolbar="#toolbar" data-url="" data-search="false"
+								data-show-refresh="false" data-show-toggle="false"
+								data-side-pagination="server" data-pagination="true"
+								data-show-columns="false" data-sort-order="desc">
+								<thead>
+									<tr>
+										<th data-checkbox="true" data-formatter="checkFormatter"></th>
+										<th data-align="left" data-field="hire">金额</th>
+										<th data-align="left" data-field="state" data-sortable="true">状态</th>
+										<th data-align="left" data-field="hireDate"
+											data-sortable="true">日期</th>
+										<th data-align="left" data-field="btn"
+											data-formatter="actionReport">租金</th>
+										<th class="guid" data-align="left" data-field="guid">guid</th>
 
-
-
-</div>
-<!-- 警告对话框 -->
-<div class="modal fade" id="alertdialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header blue">
-                <div>
-                    <strong id="alertchar" style="font-size:20px"></strong>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
-                    <button type="button" id="commitFoodDataButton" class="btn btn-primary">添 加</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
-<script type="text/javascript">
- 
-	function getQueryString(key) {
-    	var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
-    	var result = window.location.search.substr(1).match(reg);
-    	return result ? decodeURIComponent(result[2]) : null;
-	}
 
-    var hireGUID=encodeURI(getQueryString("hireGUID"));
+	</div>
+	<!-- 警告对话框 -->
+	<div class="modal fade" id="alertdialog" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header blue">
+					<div>
+						<strong id="alertchar" style="font-size: 20px"></strong>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    $("#table").bootstrapTable({
-		url : "/voucher/mobile/asset/getHireListByGUID.do?hireGUID="+hireGUID+"&sort=&order="
-	});
-    
-    function actionReport(value, row, index) {
-    		return [
-                	// '<a  href="javascript:void(0)" onclick="report(this);" title="点击查看征信报告">',
-                	// '&nbsp;<img src="img/detail.jpg" width="25px" height="25px">&nbsp;',
-                	// '</a>&nbsp;',
-                	'<button type="button" title="查看详情" onclick="repayment(this);" class="btn btn-success">查看详情</button>'
-            		].join('');
-    }
 
-    function repayment(temp){
-        var hang = $(temp.parentNode).parent().prevAll().length + 1;
-        var hireGUID =document.getElementById("table").rows[hang].cells[6].innerHTML;
-        
-        window.location.href = "hire.html?hireGUID="+hireGUID;
-        
-    }
-    
-    function actionTime(value, row, index){
-        var date = new Date(value);
-        Y = date.getFullYear() + '-';
-        M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-        D = date.getDate() + ' ';
-        h = date.getHours() + ':';
-        m = date.getMinutes() + ':';
-        s = date.getSeconds();
-        return Y+M+D+h+m+s;
-    }
 
-</script>
+
+	<script type="text/javascript">
+	
+		var campusId = 1;
+		
+		function getQueryString(key) {
+			var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+			var result = window.location.search.substr(1).match(reg);
+			return result ? decodeURIComponent(result[2]) : null;
+		}
+
+		var hireGUID = encodeURI(getQueryString("hireGUID"));
+
+		$("#table")
+				.bootstrapTable(
+						{
+							url : "/voucher/mobile/asset/getHireListByGUID.do?hireGUID="
+									+ hireGUID + "&sort=&order="
+						});
+		
+		function actionReport(value, row, index) {
+
+			var state = row.state;
+/* 
+
+*'<button type="button" title="不可交" onclick="nopay(this);" class="btn btn-success">已支付</button>'
+*/
+			if(state  == "已交"){
+				return [
+			    	// '<a  href="javascript:void(0)" onclick="report(this);" title="点击查看征信报告">',
+			    	// '&nbsp;<img src="img/detail.jpg" width="25px" height="25px">&nbsp;',
+			    	// '</a>&nbsp;',
+			    	
+					"<img src='../../../img/right.jpg' width='15px' height='15px'></i><font color='#3eb94e'>已交</font>"
+			    	].join('');
+			}
+			 
+			return [
+			// '<a  href="javascript:void(0)" onclick="report(this);" title="点击查看征信报告">',
+			// '&nbsp;<img src="img/detail.jpg" width="25px" height="25px">&nbsp;',
+			// '</a>&nbsp;',
+			'<button type="button" title="交租金" onclick="repay(this);" class="btn btn-danger">支付</button>' ]
+					.join('');
+			
+		}
+		
+		function repay(temp) {
+			var hang = $(temp.parentNode).parent().prevAll().length + 1;
+			var hire = document.getElementById("table").rows[hang].cells[1].innerHTML;
+			var text = document.getElementById("table").rows[hang].cells[3].innerHTML;
+			var guid = document.getElementById("table").rows[hang].cells[5].innerHTML;
+			var value=new Object();
+			var map = new Map();
+			value.guid=guid;
+	        value.text=text;
+	        value.hire=hire;
+			
+			$.confirm("是否确定要支付"+text+"月的租金"+hire+"元? ",
+					function(){
+				repayment(value);
+			}
+			
+			)
+		}
+
+		$('#plus').on('click', function() {
+
+			var array = $('#table').bootstrapTable('getSelections');
+			var hire = 0;
+			var text = "";
+			var guid = "";
+			var value=new Object();
+	        
+			
+			if (array.length == 0) {
+
+				$('#alertchar').text('请先选中要收租金的行！');
+				$('#alertdialog').modal('show');
+
+			} else {
+				var count = 0;
+				
+				for (var i = 0; i < array.length; i++) {
+					
+					if (i == (array.length - 1)) {
+						guid += array[i].guid; //连接最末不加，号
+						text += array[i].hireDate + " ";
+						hire = hire + array[i].hire;
+					} else {
+						guid += array[i].guid + ","; //id用逗号连接
+						hire = hire + array[i].hire;
+						text += array[i].hireDate + ",";
+					}
+				
+					count++;
+					
+				}
+				value.guid=guid;
+		        value.text=text;
+		        value.hire=hire;
+		         
+		        
+				
+				$.confirm('是否确定要支付 ' + text + '共' + count + '个月租金 合计'+hire+'元?',
+						function(){
+					
+					repayment(value);
+				})
+			}
+		})
+			
+		
+		
+		
+		function repayment(value) {
+			value.campusId = campusId;
+			 console.log(value)
+			 $.ajax({
+               type: "POST",
+               url: "/voucher/mobile/weinXinPay/getHire.do",
+               data: { 
+            	   "value": JSON.stringify(value)
+                       },
+               dataType: "json",
+               error: function (request){
+            	   console.log(request);
+                       
+                  
+               },
+               success: function (result) {      
+			  				     
+			 			var mes = result[0];
+			 			
+			 			var payMap = result[1];
+			 						 			
+			 			if(mes == "SUCCESS"){
+			 				var appId = payMap.appId;
+			 				var timeStamp = payMap.timeStamp;
+			 				var nonceStr = payMap.nonceStr;
+			 				var package = payMap.package;
+			 				var signType = payMap.signType;
+			 				var paySign = payMap.paySign;
+			 				
+			 				onBridgeReady(appId,timeStamp,nonceStr,package,signType,paySign);
+						
+					     }else if(mes == "ERR"){
+						 
+						 	console.log(payMap);
+						 	
+						 	var err_code = payMap.err_code;
+						 	
+						 	var err_code_des = payMap.err_code_des;
+						 	
+						 	$.alert({
+					 		    title: err_code_des,
+					 		});
+						 
+					 	}else{
+					 		
+					 		var return_msg = payMap.return_msg;
+					 		
+					 		$.alert({
+					 		    title: return_msg,
+					 		    content: 'Simple alert!',
+					 		    
+					 		});
+					 	}
+			 				
+		 			}
+			 			
+			});
+			
+		}
+		
+		function onBridgeReady(appId,timeStamp,nonceStr,package,signType,paySign){
+			
+			alert("appId==="+appId+"---"+"timeStamp==="+timeStamp+"---"+"nonceStr==="+nonceStr+"---"+"package==="+package+"---"+"signType==="+signType+"---"+"paySign==="+paySign);
+			console.log("appId==="+appId+"---"+"timeStamp==="+timeStamp+"---"+"nonceStr==="+nonceStr+"---"+"package==="+package+"---"+"signType==="+signType+"---"+"paySign==="+paySign);
+			   WeixinJSBridge.invoke( 'getBrandWCPayRequest', {
+				  "appId":appId,     //公众号名称,由商户传入     
+		          "timeStamp":timeStamp,         //时间戳,自1970年以来的秒数     
+		          "nonceStr":nonceStr, //随机串     
+		          "package":package,     
+		          "signType":signType,         //微信签名方式：     
+		          "paySign":paySign //微信签名 
+		         }, 
+		         function(res){      
+		      	   if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+		      		   alert("支付成功")
+		                 console.log('支付成功');
+		      		 window.location.href = 'voucher/mobile/asset/hire/hire.html';//支付成功后跳转的页面
+		             }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
+		            	 alert("支付取消")
+		          	   console.log('支付取消');
+		             }else if(res.err_msg == "get_brand_wcpay_request:fail"){
+		            	 alert("支付失败")
+		          	   console.log('支付失败');
+		                 WeixinJSBridge.call('closeWindow');
+		             } //使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok,但并不保证它绝对可靠。
+		   });   
+		}
+			   
+		   /*
+			function weixinConfig(appId, timeStamp, nonceStr, package,signType, paySign) {
+
+				    alert("appId==="+appId+"---"+"timeStamp==="+timeStamp+"---"+"nonceStr==="+nonceStr+"---"+"package==="+package+"---"+"signType==="+signType+"---"+"paySign==="+paySign);
+					
+				   wx.config({
+			        debug : false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+			        // debug : true, 
+			        appId :appId, // 必填，公众号的唯一标识
+			        timestamp : timeStamp, // 必填，生成签名的时间戳
+			        nonceStr : nonceStr, // 必填，生成签名的随机串
+			        signature : paySign,// 必填，签名，见附录1
+			        jsApiList: [
+			            'chooseWXPay' // 必须增加此参数，用户微信支付功能
+			        ]
+			        // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+			    }); 
+			
+	
+			wx.chooseWXPay({
+			   appId: appId,
+			   timestamp: timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+			   nonceStr: nonceStr, // 支付签名随机串，不长于 32 位
+			   package: package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
+			   signType: signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+			   paySign: paySign, // 支付签名
+			    success: function (res) {
+			        // 支付成功后的回调函数
+			        alert('支付成功！');
+			        window.location.href = 'voucher/mobile/asset/hire/hire.html';//支付成功后跳转的页面
+			    },
+			    cancel: function (res) {
+			        // 支付取消
+			    },
+			    fail: function (res) {
+			        // 支付失败
+			        alert("支付失败！");
+			    }
+			});
+		
+	   }
+			   */
+			   
+			   
+			   
+		function checkFormatter(value, row, index) {
+
+			var state = (row.state);
+			console.log(state);
+			if (state == "未交") {
+				return {
+					disabled : false
+				//设置是否可用   
+				}
+			} else {
+				return {
+					disabled : true
+				}
+			}
+		}
+
+		function actionTime(value, row, index) {
+			var date = new Date(value);
+			Y = date.getFullYear() + '-';
+			M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date
+					.getMonth() + 1)
+					+ '-';
+			D = date.getDate() + ' ';
+			h = date.getHours() + ':';
+			m = date.getMinutes() + ':';
+			s = date.getSeconds();
+			return Y + M + D + h + m + s;
+		}
+		
+	</script>
+
+
 </body>
 
 </html>

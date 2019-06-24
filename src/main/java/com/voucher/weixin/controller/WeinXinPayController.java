@@ -13,13 +13,16 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.bouncycastle.jce.provider.JCEMac.MD5;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,11 +30,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.voucher.manage.dao.FinanceDAO;
 import com.voucher.manage.model.Users;
 import com.voucher.manage.model.WeiXin;
 import com.voucher.manage.service.UserService;
 import com.voucher.manage.service.WeiXinService;
+import com.voucher.manage.singleton.Singleton;
+import com.voucher.manage.tools.Md5;
 import com.voucher.manage.tools.MyTestUtil;
+import com.voucher.sqlserver.context.Connect;
 import com.voucher.weixin.base.AutoAccessToken;
 import com.voucher.weixin.base.CommonUtil;
 import com.voucher.weixin.util.HttpRequestUtil;
@@ -47,6 +54,10 @@ import voucher.wxpaytest;
 public class WeinXinPayController {
 
 	Logger logger = LoggerFactory.getLogger(WeinXinPayController.class);
+	
+	ApplicationContext applicationContext=new Connect().get();
+	
+	FinanceDAO financeDAO=(FinanceDAO) applicationContext.getBean("financeDao");
 	
 	private UserService userService;
 
@@ -66,7 +77,7 @@ public class WeinXinPayController {
 	public @ResponseBody List getHire(String value, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
-//		 String homeUrl=request.getHeader("Host")+request.getContextPath();
+		String homeUrl=request.getHeader("Host")+request.getContextPath();
 
 		String spbill_create_ip = WXConstant.spbill_create_ip;
 
@@ -97,9 +108,7 @@ public class WeinXinPayController {
 
 		String nonce_str = WXPayUtil.generateNonceStr();
 
-		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");// 设置日期格式
-
-		String out_trade_no = df.format(new Date());
+		String out_trade_no = Md5.GetMD5Code(UUID.randomUUID().toString());
 
 		int total_fee = hire;
 
@@ -108,7 +117,6 @@ public class WeinXinPayController {
 		map.put("appid", appId);
 		map.put("body", WXConstant.body);
 		map.put("mch_id", mch_id);
-		map.put("sign_type", "HMAC-SHA256");
 		map.put("nonce_str", nonce_str);
 		map.put("openid", openId);
 		map.put("out_trade_no", out_trade_no);
@@ -118,7 +126,7 @@ public class WeinXinPayController {
 		map.put("notify_url", notify_url);
 		
 		
-		String sign = WXPayUtil.generateSignature(map, weixin.getApi(),SignType.HMACSHA256);
+		String sign = WXPayUtil.generateSignature(map, weixin.getApi());
 
 		logger.info("+++++++++++++++++++++++++++++++++++++++++++++++++++sign:{}", sign);
 		System.out.println(sign);
@@ -150,8 +158,6 @@ public class WeinXinPayController {
 
 		String return_code = returnMap.get("return_code");
 
-		Map<String, String> payMap = new HashMap<String, String>();
-
 		if (return_code.equals("SUCCESS")) {
 
 			System.out.println("return_code++++" + return_code);
@@ -162,27 +168,50 @@ public class WeinXinPayController {
 
 				System.out.println("result_code==========" + result_code);
 
-				payMap.put("appid", appId);
+				Map<String, String> payMap = new HashMap<String, String>();
+				
+				payMap.put("appId", appId);
 
 				payMap.put("timeStamp", String.valueOf(WXPayUtil.getCurrentTimestampMs()));
 
 				payMap.put("nonceStr", WXPayUtil.generateNonceStr());
 				
-				payMap.put("sign_type", "HMAC-SHA256");
+				payMap.put("signType", "MD5");
 
 				prepay_id = returnMap.get("prepay_id");
 
-				String trade_type = returnMap.get("trade_type");
-
 				payMap.put("package", "prepay_id=" + prepay_id);
 
-				String paySign = WXPayUtil.generateSignature(payMap, weixin.getApi(),SignType.HMACSHA256);
+				String paySign = WXPayUtil.generateSignature(payMap, weixin.getApi());
 				
 				payMap.put("paySign", paySign);
 
+				MyTestUtil.print(payMap);
+				
+				String xmlpay=WXPayUtil.mapToXml(payMap);
+				
+				System.out.println("xmlpay===="+xmlpay);
+				
 				result.add("SUCCESS");
+				
+				result.add(payMap);
+
+				LinkedHashMap<String,Map<String, Object>> registerMap=Singleton.getInstance().getRegisterMapLong();
+				
+				Map tradeMap=new HashMap<>();
+				
+				tradeMap.put("guids", guids);
+				
+				tradeMap.put("payMap", payMap);
+				
+				registerMap.put(out_trade_no, tradeMap);
+				
+				return result;
+				
 			} else {
 
+				Map<String, String> payMap = new HashMap<String, String>();
+				
 				String err_code = returnMap.get("err_code");
 
 				String err_code_des = returnMap.get("err_code_des");
@@ -192,21 +221,32 @@ public class WeinXinPayController {
 				payMap.put("err_code_des", err_code_des);
 
 				result.add("ERR");
+				
+				result.add(payMap);
+
+				return result;
+				
 			}
 
 		} else if (return_code.equals("FAIL")) {
 
+			Map<String, String> payMap = new HashMap<String, String>();
+			
 			String return_msg = returnMap.get("return_msg");
 
 			payMap.put("return_msg", return_msg);
 
 			result.add("FAIL");
+			
+			result.add(payMap);
+
+			return result;
 
 		}
-
-		result.add(payMap);
-
+		
 		return result;
+
+		
 	}
 
 	@RequestMapping("/callback")
@@ -236,17 +276,44 @@ public class WeinXinPayController {
 
 		String result_code = "";
 
-		String return_code = "";
-
 		map = WXPayUtil.xmlToMap(xmlString);
 
 		result_code = map.get("result_code");
 
-		return_code = map.get("return_code");
+		if (result_code.equals("SUCCESS")) {
 
-		if (result_code.equals("SUCCESS") && return_code.equals("SUCCESS")) {
+			LinkedHashMap<String,Map<String, Object>> registerMap=Singleton.getInstance().getRegisterMapLong();
+			
+			String out_trade_no=map.get("out_trade_no");
+			
+			Map tradeMap=registerMap.get(out_trade_no);
+			
+			if(tradeMap.get("guids")!=null&&!tradeMap.get("guids").equals("")){
+				
+				String guids=(String) tradeMap.get("guids");
+				
+				String[] filesString = guids.split(",");
+				
+				ArrayList<String> list=new ArrayList<>();
+				for (String fileString : filesString) {
 
-			return WXConstant.SUCCESS;
+					list.add(URLDecoder.decode(fileString,"utf-8"));
+					
+				}
+				
+				int i=financeDAO.updateHireSetHireListWinXinPay(list);
+				
+				if(i>0){
+					return WXConstant.SUCCESS;
+				}else{
+					return WXConstant.FAIL;
+				}
+				
+			}else{
+				
+				return WXConstant.FAIL;
+				
+			}
 
 		}
 

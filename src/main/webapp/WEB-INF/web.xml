@@ -236,7 +236,7 @@
 		</init-param>
 		<init-param>
 			<param-name>mobileLoginPath</param-name>
-			<param-value>/mobile/1/</param-value>
+			<param-value>/mobile/asset/</param-value>
 		</init-param>
 	</filter>
 	

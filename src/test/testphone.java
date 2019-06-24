@@ -41,6 +41,6 @@ public class testphone {
 	 public static void main(String[] args) {
 	    Scanner scanner=new Scanner(System.in);
 	    String a=scanner.nextLine();
-	    System.out.println("isphone="+isPhone(a));
+	    System.out.println("大师傅大师傅="+isPhone(a));
   	}
 }

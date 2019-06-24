@@ -84,6 +84,8 @@
 							<th data-align="left" data-field="userName" data-visible="false" >原始ID</th>
 							<th data-align="left" data-field="appId" data-visible="false" >AppID</th>
 							<th data-align="left" data-field="appSecret" data-visible="false" >AppSecret</th>
+							<th data-align="left" data-field="mchId" data-visible="false" >MchID</th>
+							<th data-align="left" data-field="api" data-visible="false" >api</th>
 							<th data-align="left" data-field="accessToken" data-visible="false" >AccessToken</th>
 							<th data-align="left" data-field="createTime" data-visible="false" >CreateTime</th>
 						</tr>
@@ -166,6 +168,22 @@
 						</div>
 						
 						<div class="form-group">
+							<label class="control-label col-md-4" for="mchId">MchID</label>
+							<div class="input-group  col-md-5">
+								<input class="form-control" type="text" id="mchId" name="mchId"
+									placeholder="mchId">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label col-md-4" for="api">API</label>
+							<div class="input-group  col-md-5">
+								<input class="form-control" type="text" id="api" name="api"
+									placeholder="商户证书">
+							</div>
+						</div>
+						
+						<div class="form-group">
 							<label class="control-label col-md-4" for="token2">Token验证</label>
 							<div class="input-group  col-md-5">
 								<input class="form-control" type="text" id="token2" name="token"
@@ -187,6 +205,8 @@
 				    var customService=$("#customService2").val();
 				    var userName=$("#userName2").val();
 				    var appId=$("#appId2").val();
+				    var mchId=$("#mchId").val();
+				    var api = $("#api").val();
 				    var appSecret=$("#appSecret2").val();
 				    var token=$("#token2").val();
 				    
@@ -210,6 +230,14 @@
 				    if(appSecret==null||appSecret==""){
 				    	appSecret="-";
 				    }
+				    
+				    if(mchId==null||mchId==""){
+				    	mchId="-";
+				    }
+				    
+				    if(api==null||api==""){
+				    	api="-";
+				    }
 				     
 				    if(token==null||token==""){
 				    	token="-";
@@ -221,7 +249,9 @@
 				    	customService:customService,
 				    	userName:userName,
 				    	appId:appId,
+				    	api:api,
 				    	appSecret:appSecret,
+				    	mchId:mchId,
 				    	token:token
 					}, function(text) {
 						if (text == -1 || text == 0) {
@@ -276,6 +306,8 @@
 			$("#campusName2").val(array[0].campusName);
 			$("#customService2").val(array[0].customService);
 			$("#appId2").val(array[0].appId);
+			$("#mchId").val(array[0].mchId);
+			$("#api").val(array[0].api);
 			$("#appSecret2").val(array[0].appSecret);
 			$("#token2").val(array[0].token);
 			/*

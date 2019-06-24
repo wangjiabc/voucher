@@ -26,7 +26,6 @@ import com.voucher.manage.daoModel.Assets.Position;
 import com.voucher.manage.daoModel.TTT.ChartInfo;
 import com.voucher.manage.daoModel.TTT.FileSelfBelong;
 import com.voucher.manage.daoModel.TTT.HireList;
-import com.voucher.manage.daoModel.TTT.PreMessage;
 import com.voucher.manage.daoModelJoin.RoomChangeHireLog_RoomChartLog;
 import com.voucher.manage.daoModelJoin.RoomInfo_Position;
 import com.voucher.manage.daoRowMapper.RowMappers;
@@ -911,60 +910,6 @@ public class RoomInfoDaoImpl extends JdbcDaoSupport implements RoomInfoDao{
 
 		
 		return map;
-	}
-	
-	@Override
-	public Map<String, Object> findAllPreMessage(Integer limit, Integer offset, String sort, String order, Map search) {
-		// TODO Auto-generated method stub
-		
-		PreMessage preMessage=new PreMessage();
-		
-		preMessage.setLimit(limit);
-		preMessage.setOffset(offset);
-		preMessage.setSort(sort);
-		preMessage.setOrder(order);
-		preMessage.setNotIn("GUID");
-		
-		if(!search.isEmpty()){
-		    String[] where=TransMapToString.get(search);
-		    preMessage.setWhere(where);
-		}
-		
-		List list=SelectExe.get(this.getJdbcTemplate(), preMessage);
-		
-		int total=(int) SelectExe.getCount(this.getJdbcTemplate(), preMessage).get("");
-		
-		Map map=new HashMap<>();
-		
-		map.put("rows", list);
-		
-		map.put("total", total);
-		
-		return map;
-	}
-	
-	@Override
-	public Integer insertPreMessage(PreMessage preMessage) {
-		// TODO Auto-generated method stub
-		return InsertExe.get(this.getJdbcTemplate(), preMessage);
-	}
-
-	@Override
-	public List getAllChartInfo() {
-		// TODO Auto-generated method stub
-		ChartInfo chartInfo=new ChartInfo();
-		
-		RoomInfo roomInfo=new RoomInfo();
-
-		String sql="SELECT * FROM "+Singleton.ROOMDATABASE+".[dbo].[ChartInfo] left join "+Singleton.ROOMDATABASE+".[dbo].[RoomInfo] on [ChartInfo].guid="+
-					"[RoomInfo].ChartGUID where ([RoomInfo].State = '已出租' or [RoomInfo].State = '不可出租' or [RoomInfo].State = '空置') "+
-					"AND IsHistory=0";
-		
-		Object[] objects={chartInfo,roomInfo};
-		
-		List list=SelectSqlJoinExe.get(this.getJdbcTemplate(), sql, objects,chartInfo);
-		
-		return list;
 	}
 	
 }

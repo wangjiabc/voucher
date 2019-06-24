@@ -21,6 +21,26 @@ public class Campus {
 
 	private Integer cityId;
 	
+	private String mch_id;
+	
+	private String api;
+	
+	public String getApi() {
+		return api;
+	}
+
+	public void setApi(String api) {
+		this.api = api;
+	}
+
+	public String getMch_id() {
+		return mch_id;
+	}
+
+	public void setMch_id(String mch_id) {
+		this.mch_id = mch_id;
+	}
+
 	private String customService;
 
 	public Integer getCampusId() {
@@ -73,7 +93,7 @@ public class Campus {
 
 	public String getLoginTime2() {
 		try{
-			loginTime2 = new java.text.SimpleDateFormat("yyyyÄêMMÔÂddÈÕ HH:mm").format(loginTime);
+			loginTime2 = new java.text.SimpleDateFormat("yyyyï¿½ï¿½MMï¿½ï¿½ddï¿½ï¿½ HH:mm").format(loginTime);
 			}catch (Exception e) {
 				// TODO: handle exception
 				loginTime2=null;

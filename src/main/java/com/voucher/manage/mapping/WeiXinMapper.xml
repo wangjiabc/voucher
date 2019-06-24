@@ -9,8 +9,10 @@
 	 <result column="custom_service" property="customService" jdbcType="VARCHAR" />
 	 <result column="home_page" property="homePage" jdbcType="VARCHAR" />
 	 <result column="user_name" property="userName" jdbcType="VARCHAR" />
-	 <result column="app_id" property="appId" jdbcType="VARCHAR" />
+	 <result column="app_id" property="appId" jdbcType="VARCHAR" />	 
 	 <result column="app_secret" property="appSecret" jdbcType="VARCHAR" />
+	 <result column="mch_id" property="mchId" jdbcType="VARCHAR" />
+	 <result column="api" property="api" jdbcType="VARCHAR" />
 	 <result column="token" property="token" jdbcType="VARCHAR" />
 	 <result column="access_token" property="accessToken" jdbcType="VARCHAR" />
 	 <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
@@ -31,7 +33,7 @@
         campus_id,campus_name,city_id,
         custom_service,home_page,
         user_name,
-        app_id,app_secret,
+        app_id,app_secret,mch_id,api,
         token,
         access_token,
         create_time
@@ -46,7 +48,7 @@
         campus_id,campus_name,city_id,
         custom_service,home_page,
         user_name,
-        app_id,app_secret,
+        app_id,app_secret,mch_id,api,
         token,
         access_token,
         create_time
@@ -82,6 +84,12 @@
 			<if test="appSecret !=null">
 				app_secret,
 			</if>
+			<if test="mchId != null">
+				mch_id,
+			</if>
+			<if test="api != null">
+				api,
+			</if>
 			<if test="token !=null">
 				token,
 			</if>
@@ -100,6 +108,12 @@
 			</if>
 			<if test="appSecret!=null">
 				#{appSecret,jdbcType=VARCHAR},
+			</if>
+			<if test="mchId !=null">
+				#{mchId,jdbcType=VARCHAR},
+			</if>
+			<if test="api !=null">
+				#{api,jdbcType=VARCHAR},
 			</if>
 			<if test="token!=null">
 				#{token,jdbcType=VARCHAR},
@@ -124,6 +138,12 @@
 			</if>
 			<if test="appSecret!=null">
 			 app_secret=#{appSecret,jdbcType=VARCHAR},
+			</if>
+			<if test="mchId!=null">
+			 mch_id =#{mchId,jdbcType=VARCHAR},
+			</if>
+			<if test="api!=null">
+			 api =#{api,jdbcType=VARCHAR},
 			</if>
 			<if test="accessToken!=null">
 			 access_token=#{accessToken,jdbcType=VARCHAR},

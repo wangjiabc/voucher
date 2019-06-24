@@ -686,6 +686,101 @@ public class FinanceDAOImpl extends JdbcDaoSupport implements FinanceDAO{
 		
 	}
 
+
+	@Override
+	public Integer updateHireSetHireListWinXinPay(List files) {
+		// TODO Auto-generated method stub
+		Date date = new Date();
+				
+		float amount = 0;
+		
+		String printMemo = "";
+		
+		String chartGUID = null;
+		
+		String hireGUID = null;
+		
+		String payGUID=UUID.randomUUID().toString();
+		
+		int i=0;
+		
+		if(!files.isEmpty()){
+            try {
+            	int u=0;
+            	Iterator<String> iterator=files.iterator();
+            	
+                while (iterator.hasNext()){
+                        String guid=iterator.next();
+
+                    	String[] where={"GUID=",guid};
+                    	
+                    	date=new Date();
+                    	
+                    	HireList hireList=new HireList();
+                    	hireList.setState("已交");
+                    	hireList.setOptDate(date);
+                    	hireList.setOperator("微信支付");
+                    	hireList.setWhere(where);                    	
+                    	hireList.setPayGUID(payGUID);
+                    	
+                    	u=UpdateExe.get(this.getJdbcTemplate(), hireList);
+                    	
+                    	if(u==0){
+                    		TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                    		return 0;
+                    	}
+                    	
+                    	hireList.setLimit(1);
+                    	hireList.setOffset(0);
+                    	hireList.setNotIn("GUID");
+                    	
+                    	HireList hireList2=(HireList) SelectExe.get(this.getJdbcTemplate(), hireList).get(0);
+                    	
+                    	amount=amount+hireList2.getHire();  
+                    	if(i==(files.size()-1)){
+                    		printMemo=printMemo+hireList2.getHireDate(); 
+                    	}else{
+                    		printMemo=printMemo+hireList2.getHireDate()+","; 
+                    	}
+                    	chartGUID=hireList2.getChartGUID();                    	
+                    	hireGUID=hireList2.getHireGUID();
+                    	
+                    	i++;
+                }
+
+
+                HirePay hirePay=new HirePay();
+                
+                hirePay.setGUID(payGUID);
+                hirePay.setAmount(amount);
+                hirePay.setOperator("微信支付");
+                hirePay.setPrintMemo(printMemo);
+                hirePay.setChartGUID(chartGUID);
+                hirePay.setHireGUID(hireGUID);
+                hirePay.setOptDate(date);
+                hirePay.setPrintCount((float) 0);
+                
+                u=InsertExe.get(this.getJdbcTemplate(), hirePay);
+                
+                if(u==0){
+            		TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            		return 0;
+            	}
+                
+                return u;
+               
+            } catch (Exception e) {
+                e.printStackTrace();
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                return 0;
+            }
+        }else {
+        	
+        	return -2;
+        	
+        }
+	}
+
 			
 	
 }

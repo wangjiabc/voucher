@@ -11,25 +11,29 @@ public class WeiXin {
 	private String campusName;
 
 	private Integer cityId;
-	
+
 	private String customService;
-	
+
 	private String homePage;
-	
-	private String userName; //���ں�ԭʼID
-	
+
+	private String userName; // ���ں�ԭʼID
+
 	private String appId;
-	
+
 	private String appSecret;
+
+	private String mchId;
 	
+	private String api;
+
 	private String accessToken;
-	
+
 	private String token;
-	
+
 	private Date createTime;
-	
+
 	private String url;
-	
+
 	public Integer getCampusId() {
 		return campusId;
 	}
@@ -49,47 +53,45 @@ public class WeiXin {
 	public void setCityId(Integer cityId) {
 		this.cityId = cityId;
 	}
-	
+
 	public Integer getCityId() {
 		return cityId;
 	}
-	
+
 	public void setCustomService(String customService) {
-		this.customService=customService;
+		this.customService = customService;
 	}
-	
+
 	public String getCustomService() {
 		return customService;
 	}
-	
+
 	public void setAppId(String appId) {
-		this.appId=appId;
+		this.appId = appId;
 	}
-	
+
 	public String getAppId() {
 		return appId;
 	}
-	
-	
+
 	public void setAppSecret(String appSecret) {
-		this.appSecret=appSecret;
+		this.appSecret = appSecret;
 	}
-	
+
 	public String getAppSecret() {
 		return appSecret;
 	}
-	
-	
+
 	public void setAccessToken(String accessToken) {
-		this.accessToken=accessToken;
+		this.accessToken = accessToken;
 	}
-	
+
 	public String getAccessToken() {
 		return accessToken;
 	}
 
 	public String getHomePage() {
-		return "<a href='"+homePage+"'> http://"+homePage;
+		return "<a href='" + homePage + "'> http://" + homePage;
 	}
 
 	public void setHomePage(String homePage) {
@@ -121,21 +123,37 @@ public class WeiXin {
 	}
 
 	public String getCreateTime() {
-		 SimpleDateFormat format =  new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-	       Long time=new Long(createTime.getTime());
-	       String date = format.format(time);
-	       
-	       return date;
+		Long time = new Long(createTime.getTime());
+		String date = format.format(time);
+
+		return date;
 	}
 
 	public Date getOverTime() {
 		return createTime;
 	}
-	
+
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
+	public String getMchId() {
+		return mchId;
+	}
+
+	public void setMchId(String mchId) {
+		this.mchId = mchId;
+	}
 	
+	public String getApi() {
+		return api;
+	}
+
+	public void setApi(String api) {
+		this.api = api;
+	}
+
+
 }

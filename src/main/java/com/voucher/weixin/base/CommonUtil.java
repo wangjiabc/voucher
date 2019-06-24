@@ -16,21 +16,21 @@ import com.alibaba.fastjson.JSONObject;
 
 public class CommonUtil {
 	  /**
-     * ·¢ËÍhttpsÇëÇó
+     * ï¿½ï¿½ï¿½ï¿½httpsï¿½ï¿½ï¿½ï¿½
      * 
-     * @param requestUrl ÇëÇóµØÖ·
-     * @param requestMethod ÇëÇó·½Ê½£¨GET¡¢POST£©
-     * @param outputStr Ìá½»µÄÊý¾Ý
-     * @return JSONObject(Í¨¹ýJSONObject.get(key)µÄ·½Ê½»ñÈ¡json¶ÔÏóµÄÊôÐÔÖµ)
+     * @param requestUrl ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+     * @param requestMethod ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½GETï¿½ï¿½POSTï¿½ï¿½
+     * @param outputStr ï¿½á½»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * @return JSONObject(Í¨ï¿½ï¿½JSONObject.get(key)ï¿½Ä·ï¿½Ê½ï¿½ï¿½È¡jsonï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ)
      */
     public static JSONObject httpsRequest(String requestUrl, String requestMethod, String outputStr) {
     	JSONObject jsonObject = null;
         try {
-            // ´´½¨SSLContext¶ÔÏó£¬²¢Ê¹ÓÃÎÒÃÇÖ¸¶¨µÄÐÅÈÎ¹ÜÀíÆ÷³õÊ¼»¯
+            // ï¿½ï¿½ï¿½ï¿½SSLContextï¿½ï¿½ï¿½ó£¬²ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
             TrustManager[] tm = { new MyX509TrustManager() };
             SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
             sslContext.init(null, tm, new java.security.SecureRandom());
-            // ´ÓÉÏÊöSSLContext¶ÔÏóÖÐµÃµ½SSLSocketFactory¶ÔÏó
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½SSLContextï¿½ï¿½ï¿½ï¿½ï¿½ÐµÃµï¿½SSLSocketFactoryï¿½ï¿½ï¿½ï¿½
             SSLSocketFactory ssf = sslContext.getSocketFactory();
 
             URL url = new URL(requestUrl);
@@ -40,18 +40,18 @@ public class CommonUtil {
             conn.setDoOutput(true);
             conn.setDoInput(true);
             conn.setUseCaches(false);
-            // ÉèÖÃÇëÇó·½Ê½£¨GET/POST£©
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½GET/POSTï¿½ï¿½
             conn.setRequestMethod(requestMethod);
 
-            // µ±outputStr²»ÎªnullÊ±ÏòÊä³öÁ÷Ð´Êý¾Ý
+            // ï¿½ï¿½outputStrï¿½ï¿½ÎªnullÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½
             if (null != outputStr) {
                 OutputStream outputStream = conn.getOutputStream();
-                // ×¢Òâ±àÂë¸ñÊ½
+                // ×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
                 outputStream.write(outputStr.getBytes("UTF-8"));
                 outputStream.close();
             }
 
-            // ´ÓÊäÈëÁ÷¶ÁÈ¡·µ»ØÄÚÈÝ
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             InputStream inputStream = conn.getInputStream();
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -61,7 +61,7 @@ public class CommonUtil {
                 buffer.append(str);
             }
 
-            // ÊÍ·Å×ÊÔ´
+            // ï¿½Í·ï¿½ï¿½ï¿½Ô´
             bufferedReader.close();
             inputStreamReader.close();
             inputStream.close();
@@ -75,4 +75,58 @@ public class CommonUtil {
         }
         return jsonObject;
     }
+    
+    public static String httpsRequestString(String requestUrl, String requestMethod, String outputStr) {
+    	String jsonObject = null;
+        try {
+            // ï¿½ï¿½ï¿½ï¿½SSLContextï¿½ï¿½ï¿½ó£¬²ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
+            TrustManager[] tm = { new MyX509TrustManager() };
+            SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
+            sslContext.init(null, tm, new java.security.SecureRandom());
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½SSLContextï¿½ï¿½ï¿½ï¿½ï¿½ÐµÃµï¿½SSLSocketFactoryï¿½ï¿½ï¿½ï¿½
+            SSLSocketFactory ssf = sslContext.getSocketFactory();
+
+            URL url = new URL(requestUrl);
+            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+            conn.setSSLSocketFactory(ssf);
+            
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½GET/POSTï¿½ï¿½
+            conn.setRequestMethod(requestMethod);
+
+            // ï¿½ï¿½outputStrï¿½ï¿½ÎªnullÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½
+            if (null != outputStr) {
+                OutputStream outputStream = conn.getOutputStream();
+                // ×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+                outputStream.write(outputStr.getBytes("UTF-8"));
+                outputStream.close();
+            }
+
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            InputStream inputStream = conn.getInputStream();
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String str = null;
+            StringBuffer buffer = new StringBuffer();
+            while ((str = bufferedReader.readLine()) != null) {
+                buffer.append(str);
+            }
+
+            // ï¿½Í·ï¿½ï¿½ï¿½Ô´
+            bufferedReader.close();
+            inputStreamReader.close();
+            inputStream.close();
+            inputStream = null;
+            conn.disconnect();
+            jsonObject = buffer.toString();
+        } catch (ConnectException ce) {
+            ce.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
+    }
+    
 }

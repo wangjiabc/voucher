@@ -34,19 +34,17 @@ public class HttpUtils {
 	 private HttpClient httpClient;
 
 	    public HttpUtils(){
-	    	BasicHttpClientConnectionManager connManager;
-	        connManager = new BasicHttpClientConnectionManager(
-	                RegistryBuilder.<ConnectionSocketFactory>create()
-	                        .register("http", PlainConnectionSocketFactory.getSocketFactory())
-	                        .register("https", SSLConnectionSocketFactory.getSocketFactory())
-	                        .build(),
-	                null,
-	                null,
-	                null
-	        );
-	        httpClient = HttpClientBuilder.create()
-	                .setConnectionManager(connManager)
-	                .build();
+	    	
+		if (httpClient == null) {
+			BasicHttpClientConnectionManager connManager;
+
+			connManager = new BasicHttpClientConnectionManager(
+					RegistryBuilder.<ConnectionSocketFactory>create()
+							.register("http", PlainConnectionSocketFactory.getSocketFactory())
+							.register("https", SSLConnectionSocketFactory.getSocketFactory()).build(),
+					null, null, null);
+			httpClient = HttpClientBuilder.create().setConnectionManager(connManager).build();
+			}
 	    }
 	
 	    /**

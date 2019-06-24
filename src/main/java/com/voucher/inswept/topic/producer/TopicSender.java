@@ -16,11 +16,11 @@ import org.springframework.stereotype.Component;
 /**
  * @描述 发送消息到主题
  */
-@Component
+//@Component
 public class TopicSender {
-	
+	/*
 	@Autowired
-	@Qualifier("jmsTopicTemplate")
+	@Qualifier("jmsTopicTemplate")*/
 	private JmsTemplate jmsTemplate;
 	
 	/**
@@ -28,7 +28,7 @@ public class TopicSender {
 	 * @param queueName 队列名称
 	 * @param message 消息内容
 	 */
-	public void send(String topicName,final String message){
+	/*public void send(String topicName,final String message){
 		jmsTemplate.send(topicName, new MessageCreator() {
 			@Override
 			public Message createMessage(Session session) throws JMSException {
@@ -36,5 +36,5 @@ public class TopicSender {
 			}
 		});
 	}
-
+*/
 }
